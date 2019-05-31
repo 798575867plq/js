@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 300px;
+            height: 200px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">面向对象思想</button>
+    <div id="a1">
+
+    </div>
+
+    <button id="btn1">面向对象思想</button>
+    <div id="a2">
+
+    </div>
+
+    <script>
+        // 面向对象思想---初级的
+        function ChangeColor(btnId, divId, color) {
+            this.btnObj = document.getElementById(btnId);
+            this.divObj = document.getElementById(divId);
+            this.color = color;
+        }
+
+        ChangeColor.prototype.init = function () {
+            console.log(this);
+            var that = this;
+            this.btnObj.onclick = function () {
+                that.divObj.style.backgroundColor = that.color;
+            }
+        }
+
+        //实例化对象
+        var cc = new ChangeColor("btn", "a1", "yellow");
+        cc.init();
+
+        //===============================进阶版
+
+        function ChangeStyle(btnObj, divObj, json) {
+            this.btnObj = btnObj;
+            this.divObj = divObj;
+            this.json = json;
+        }
+
+        ChangeStyle.prototype.init = function () {
+            var that = this;
+            this.btnObj.onclick = function () {
+                for (var key in that.json) {
+                    that.divObj.style[key] = that.json[key];
+                }
+            }
+        }
+
+        var json = {
+            "width": "500px",
+            "height": "100px",
+            "opacity": "0.3"
+        };
+        var cs = new ChangeStyle(document.getElementById("btn1"), document.getElementById("a2"), json);
+        cs.init();
+
+        // ===========================
+
+        (function (win) {
+            var num = 10; //局部变量
+            window.num = num;
+        })(window);
+        console.log(num); //自调用的方式一定要加分号
+        // 把局部变量变成全局变量的方法------》把局部变量给window就可以了
+
+        // 生成随机数对象
+        (function (window) {
+            // 产生随机数的构造函数
+            function Random() {
+                // 在原型对象中添加方法
+                Random.prototype.getRandom = function (min, max) {
+                    return Math.floor(Math.random() * (max - min) + min);
+                }
+            };
+            // 把Random对象暴露给顶级对象window-- -- - > 外部可以直接使用这个对象
+            window.Random = Random;
+        })(window);
+
+        var rm = new Random();
+        console.log(rm.getRandom(0, 10));
+    </script>
+</body>
+
+</html>
