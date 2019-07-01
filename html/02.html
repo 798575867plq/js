@@ -11,6 +11,13 @@
             width: 800px;
             height: 600px;
             background-color: #ccc;
+            position: relative;
+            margin: 100px auto;
+        }
+
+        * {
+            margin: 0px;
+            padding: 0px;
         }
     </style>
 </head>
@@ -39,7 +46,7 @@
             function Food(width, height, color) {
                 this.width = width || 20;
                 this.height = height || 20;
-                this.color = color;
+                this.color = color || "green";
                 this.x = 0; //横坐标
                 this.y = 0; //纵坐标
                 this.element = document.createElement("div"); //小方块的元素
@@ -61,7 +68,7 @@
                 this.x = x;
                 this.y = y;
                 var div = this.element;
-                div.style.left = this.x + "px;"
+                div.style.left = this.x + "px";
                 div.style.top = this.y + "px";
             }
 
