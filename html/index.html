@@ -76,55 +76,6 @@
         // 2、如何判断对象是不是这个数据类型？
         // 1）、通过构造器的方式   实例对象.构造器=构造函数的名字
         // 2)、对象 instanceof 构造函数的名字-------尽可能使用这种方式
-
-
-        //原型
-        // 通过原型添加方法，解决数据共享，节省内存空间
-        Person2.prototype.sayHi = function () {
-            console.log("啦啦啦啦啦啦");
-        }
-        var p1 = new Person2("小红", 20, "女");
-        var p2 = new Person2("小敏敏", 22, "男");
-        console.log(p1 == p2);
-        console.dir(p1);
-        console.log(p1.sayHi == p2.sayHi);
-        // 实例对象中有__proto__这个属性，叫原型，也是一个对象，可以叫原型对象，这个对象是给浏览器使用，不是标准的属性
-        // 构造函数中有prototype这个属性，叫原型，也是一个对象，可以叫原型对象，这个对象是给程序员使用的，是标准的属性
-        // 实例对象的__proto__和构造函数的prototype相等------true
-
-        //属性需要共享，方法也需要共享
-        // 不需要共享的数据写在构造函数里面，需要共享的数据写在原型里
-
-        // 简单的原型写法
-        Person2.prototype = {
-            // 手动修改构造器的指向
-            constructor: Person2,
-            height: "188",
-            weight: "45kg",
-            eating: function () {
-                console.log("吃吃吃");
-                //原型对象中的方法可以相互调用
-                this.say();
-            },
-            say: function () {
-                console.log("哈哈哈");
-            }
-        }
-
-        var stu = new Person2("小白", 90, "男");
-        stu.eating();
-        // stu.say();
-        console.dir(Person2);
-        console.dir(stu);
-
-        // 实例对象使用的属性或方法，先在实例对象中查找，找到了就直接使用，找不到就去实例对象的__proto__指向的原型对象prototype中查找,找到了则使用，找不到则报错
-
-        // 可以给系统的内置对象添加原型方法，相当于改变源码
-        String.prototype.myOne =function(){
-            console.log("给系统对象添加方法哦");
-        }
-        var a1 = new String();
-        a1.myOne();
     </script>
 </body>
 

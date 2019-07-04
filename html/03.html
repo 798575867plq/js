@@ -203,6 +203,7 @@
                 }.bind(that), 100);
             }
 
+            // 键盘事件
             Game.prototype.bindKey = function () {
                 document.addEventListener("keydown", function (e) {
                     switch (e.keyCode) {
@@ -225,6 +226,7 @@
             window.Game = Game;
         }());
 
+        // 初始化游戏对象并开始游戏
         var gm = new Game(map);
         gm.init();
 
