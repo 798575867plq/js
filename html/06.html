@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        // 拷贝继承-----就是把一个对象的原型中所有的属性和方法复制一份给另一个对象
+        function Person() {
+
+        }
+        Person.prototype.name = "小红";
+        Person.prototype.age = 12;
+        Person.prototype.eat = function () {
+            console.log("吃饭");
+        }
+
+        var obj = {};
+        for (var key in Person.prototype) {
+            obj[key] = Person.prototype[key];
+        }
+        console.dir(obj);
+        obj.eat();
+
+        // 函数的角色-----1：函数的声明(IE8中会有问题)，2：函数表达式（最好用它）
+        function f1() {
+            console.log("函数的声明");
+        };
+        var f2 = function () {
+            console.log("函数表达式");
+        };
+
+        // 函数的指向
+        // 普通函数的this是谁？------window
+        // 对象.方法中的this是谁？------当前的实例对象
+        // 定时器的this是谁？-------window
+        // 构造函数中的this是谁？------实例对象
+        // 原型对象方法中的this是谁？-----实例对象
+
+        function f3() {
+            console.log(this);
+        }
+        f3();
+
+        // setInterval(function () {
+        //     console.log(this);
+        // }, 1000);
+
+        function Dog() {
+            console.log(this);
+            this.sayHi = function () {
+                console.log(this);
+            }
+        }
+        Dog.prototype.eat = function () {
+            console.log(this);
+        }
+        var dog = new Dog();
+        console.log(dog);
+        dog.sayHi();
+        dog.eat();
+
+        // 函数是对象，对象不一定是函数
+        // 如果一个东西里有prototype,也有__proto__，说明这个东西既是函数也是对象
+
+        // 数组可以存放任何类型的数据
+        var arr = [
+            function a1() {
+                console.log("哈哈哈哈");
+            },
+            function a2() {
+                console.log("嘻嘻嘻");
+            },
+            function a3() {
+                console.log("来来来");
+            }
+        ];
+
+        // 回调函数，函数作为参数使用
+        arr.forEach(function (ele) {
+            ele();
+        })
+    </script>
+</body>
+
+</html>

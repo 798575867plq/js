@@ -17,9 +17,94 @@
         // 封装：就是包装
         // 继承：是一种关系，类（class）与类（class）之间的关系，js中没有类，但是可以通过构造函数模拟类，然后通过原型来实现继承，继承也是为了实现数据共享，js中的继承也是为了数据共享
         // 多态：一个对象有不同的行为，或者是同一个行为针对于不同的对象产生不同的结果，要想有多态，就要先有继承。、
-        
+
         // 原型的作用之一：数据共享，节省内存空间
         // 原型的作用之二：为了实现继承
+
+        // 案例1----通过原型来继承----只需要先改变原型的指向即可----缺点：属性值重复的问题
+        function Person(name, sex) {
+            this.name = name;
+            this.sex = sex;
+        }
+        Person.prototype.eat = function () {
+            console.log("吃饭");
+        }
+
+        function Person1(height) {
+            this.height = height;
+        }
+        Person1.prototype = new Person("小白", "男"); //-----改变了原型的指向
+        Person1.prototype.saiHi = function () {
+            console.log("你好");
+        }
+
+        function Person2(weight) {
+            this.weight = weight;
+        }
+        Person2.prototype = new Person1("180cm"); //-----改变了原型的指向
+        Person2.prototype.sleep = function () {
+            console.log("睡觉");
+        }
+        var per = new Person2("50kg");
+        console.log(per.name, per.sex, per.height, per.weight);
+        per.eat();
+        per.saiHi();
+        per.sleep();
+
+        // 案例2---------借用构造函数：构造函数.call(当前对象，属性，属性，属性.....);
+        // 解决了值重复的问题，缺点：父级类别的方法不能继承
+        function Dog(name, sex) {
+            this.name = name;
+            this.sex = sex;
+        }
+        Dog.prototype.eat = function () {
+            console.log("吃饭");
+        }
+
+        function Dog1(name, sex, height) {
+            // 借用构造函数
+            Dog.call(this, name, sex);
+            this.height = height;
+        }
+
+        var dog = new Dog1("小黑", "男", "10cm");
+        console.log(dog.name, dog.sex, dog.height);
+        var dog1 = new Dog1("小白", "女", "20cm");
+        console.log(dog1.name, dog1.sex, dog1.height);
+        var dog2 = new Dog1("小黄", "男", "30cm");
+        console.log(dog2.name, dog2.sex, dog2.height);
+
+        // 案例3--------组合继承：原型继承+借用构造函数继承------属性和方法都能继承
+        function Student(name, sex) {
+            this.name = name;
+            this.sex = sex;
+        }
+        Student.prototype.eat = function () {
+            console.log("吃饭");
+        }
+
+        function Student1(name, sex, height) {
+            // 借用构造函数
+            Student.call(this, name, sex);
+            this.height = height;
+        }
+        Student1.prototype = new Student(); //不传值
+        Student1.prototype.saiHi = function () {
+            console.log("你好啊");
+        }
+
+        var stu = new Student1("学生1", "男", "180cm");
+        console.log(stu.name, stu.sex, stu.height);
+        stu.eat();
+        stu.saiHi();
+        var stu1 = new Student1("学生2", "女", "160cm");
+        console.log(stu1.name, stu1.sex, stu1.height);
+        stu1.eat();
+        stu1.saiHi();
+        var stu2 = new Student1("学生3", "男", "170cm");
+        console.log(stu2.name, stu2.sex, stu2.height);
+        stu2.eat();
+        stu2.saiHi();
     </script>
 </body>
 

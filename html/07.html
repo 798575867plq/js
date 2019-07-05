@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        // apply和call方法
+        // 作用：改变this的指向
+        // 不同的地方：参数传递的方式不一样
+
+        function f1(x, y) {
+            console.log("结果是" + (x + y) + this);
+            return "888";
+        }
+        f1(10, 20);
+        f1.apply();
+        f1.call();
+        f1.apply(null);
+        f1.call(null);
+
+        // apply和call方法中如果没有传入参数，或者传入的是null，那么调用该方法的函数对象中的this就是默认的window
+        var result1 = f1.apply(null, [100, 200]);
+        var result2 = f1.call(null, 100, 200);
+        console.log(result1);
+        console.log(result2);
+
+        var obj = {};
+        f1.apply(obj, [90, 90]);
+        f1.call(obj, 80, 80);
+    </script>
+</body>
+
+</html>
