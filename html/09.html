@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <input type="button" value="赞（1）">
+        <input type="button" value="赞（1）">
+        <input type="button" value="赞（1）">
+        <input type="button" value="赞（1）">
+    </div>
+
+
+    <script>
+        // 变量：局部变量、全局变量
+        // 作用域：就是变量的使用范围，局部作用域和全局作用域
+        // js中没有块级作用域------一队括号中定义的变量，这个变量可以在大括号外面使用
+        // 函数中定义的变量是局部变量
+        {
+            var num = 10;
+        }
+        console.log(num);
+
+        // function f1() {
+        //     var a1 = 100;
+        // }
+        // console.log(a1);//报错
+
+        // 作用域链：变量的使用，从里向外，层层搜索。搜索到了就可以直接使用了
+        // 层层搜索，搜索到0级的时候，如果还没找到这个变量，就会报错
+        var num1 = 20; //---------作用域链：0级
+
+        function f2() {
+            var num1 = 30; //---------作用域链：1级
+
+            function f3() {
+                var num1 = 40; //---------作用域链：2级
+                console.log(num1);
+            }
+            f3();
+        }
+        f2();
+
+        // 预解析：就是在浏览器解析代码之前，把变量的声明和函数的声明提前到该作用域的最声明
+
+        console.log(b1);
+        var b1 = 1000;
+
+        ff();
+
+        function ff() {
+            console.log("哈哈哈哈");
+        }
+
+        // ff1();
+        // var b2 = function ff1() {
+        //     console.log("会报错");
+        // }
+
+        // 闭包
+        // 闭包的概念：函数中有另一个函数，或者是一个函数中有另一个对象，里面的函数或对象都可以使用外面函数的变量或数据
+        // 闭包的模式：函数模式的闭包，对象模式的闭包
+        // 闭包的作用：缓存数据，延长作用域链
+        // 闭包的优点和缺点：缓存数据，没有及时的释放
+
+        // 闭包的应用
+        // 函数模式的闭包：在一个函数中有另一个函数
+        function d1() {
+            var num = 1212;
+
+            function d2() {
+                console.log(num)
+            }
+            d2();
+        };
+        d1();
+
+        // 对象模式的闭包：函数中有一个对象
+        function d3() {
+            var num = 2121;
+            var obj = {
+                age: num
+            };
+            console.log(obj.age);
+        }
+        d3();
+
+        // 缓存数据。如果想要缓存数据，就把这个数据放在外层的函数和里层的函数的中间位置
+        // 局部变量是在函数中，函数使用结束后，局部变量就会被自动的释放
+        // 闭包后，里面的局部变量的作用域链就会被延长
+        function d4() {
+            var num = 10; //就是这里
+            return function () {
+                num++;
+                return num;
+            }
+        }
+        var fd = d4();
+        console.log(fd());
+        console.log(fd());
+        console.log(fd());
+
+        // 点赞案例
+        function getValue() {
+            var value = 2;
+            return function () {
+                this.value = "赞（" + (value++) + "）";
+            }
+        };
+
+        var btn = document.getElementsByTagName("input");
+        for (var i = 0; i < btn.length; i++) {
+            btn[i].onclick = getValue();
+        }
+    </script>
+</body>
+
+</html>
