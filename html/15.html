@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <script>
+    var str = "中国移动：10086，中国联通：10010，中国电信：10000";
+    var array = str.match(/\d{5}/g); //g 表示全局匹配
+    console.log(array);
+
+    var reg = /\d{5}/g;
+    var arr = reg.exec(str);
+    while (arr != null) {
+      console.log(arr[0]);
+      arr = reg.exec(str); //exec方法和match方法作用一样，但是用法更复杂
+    }
+
+    var date = "2019-12-13";
+    var array1 = date.match(/([0-9]{4})[-]([0-9]{2})[-]([0-9]{2})/g);
+    console.log(RegExp.$1, RegExp.$2, RegExp.$3); //$3 表示第3组
+
+    var str1 = "   哈哈哈哈    零零零零  啦啦  ";
+    str1 = str1.replace(/哈/g, "牛牛");
+    str1 = str1.replace(/\s+/g, "");
+    console.log(str1);
+
+    var str2 = "sSddsS";
+    str2 = str2.replace(/[S]/ig, "A"); //i 表示忽略大小写
+    console.log(str2);
+
+    // 伪数组和真数组的区别
+    // 伪数组的长度不可变，真数组的长度可以变
+    // 伪数组不可以使用数组的方法， 真数组可以使用数组的方法
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .box {
+      margin: 50px 500px;
+      width:400px;
+    }
+
+    .lv0 {
+      width: 150px;
+      height: 10px;
+    }
+
+    .lv1 {
+      width: 50px;
+      height: 10px;
+      background-color: red;
+
+    }
+
+    .lv2 {
+      width: 100px;
+      height: 10px;
+      background-color: yellow;
+    }
+
+    .lv3 {
+      width: 150px;
+      height: 10px;
+      background-color: green;
+
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <div>密码：<input type="text" id="pwd"></div>
+    <div>
+      <span>密码强度：</span>
+      <div class="lv0" style="border: 1px solid #333;">
+        <div id="lvl" class=""></div>
+      </div>
+      <div>
+        <label for="email"> 邮箱：</label><input type="text" id="email"> <span id="tip">*</span>
+      </div>
+      <div>
+        用户名：<input type="text" id="username"> <span id="tips">*</span>
+      </div>
+      <div>
+        手机号码：<input type="text" id="phone"> <span id="tip1">*</span>
+      </div>
+      <div>
+        座机号码：<input type="text" id="tellPhone"> <span id="tip2">*</span>
+      </div>
+      <div>
+        QQ：<input type="text" id="qq"> <span id="tip3">*</span>
+      </div>
+      <div>
+        身份证：<input type="text" id="idCard"> <span id="tip4">*</span>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    // 验证密码强度
+    function my$(id) {
+      return document.getElementById(id);
+    };
+
+    my$("pwd").onkeyup = function () {
+      var lvl = getLvl(this.value);
+      if (this.value.length >= 6) {
+        my$("lvl").className = "lv" + lvl
+        console.log(lvl);
+      } else {
+        my$("lvl").className = "lv0"
+      }
+    };
+
+    function getLvl(pwd) {
+      var lvl = 0;
+      if (/[0-9]/.test(pwd)) {
+        lvl++;
+      }
+      if (/[a-zA-Z]/.test(pwd)) {
+        lvl++;
+      }
+      if (/[^0-9a-zA-Z_]/.test(pwd)) {
+        lvl++;
+      }
+      return lvl;
+    }
+
+    // 验证邮箱
+    my$("email").onblur = function () {
+      var reg = /^[0-9a-zA-Z._-]+[@][0-9a-zA-Z_-]+([.][a-zA-Z]+){1,2}$/;
+      if (reg.test(this.value)) {
+        my$("tip").innerHTML = "正确";
+      } else {
+        my$("tip").innerHTML = "错误";
+      }
+    }
+
+    // 验证中文名字
+    my$("username").onblur = function () {
+      var reg = /^[\u4e00-\u9fa5]{2,6}$/;
+      if (reg.test(this.value)) {
+        my$("tips").innerHTML = "正确";
+      } else {
+        my$("tips").innerHTML = "错误";
+      }
+    }
+
+    // 验证手机号码
+    my$("phone").onblur = function () {
+      var reg = /^[1][0-9]{10}$/;
+      if (reg.test(this.value)) {
+        my$("tip1").innerHTML = "正确";
+      } else {
+        my$("tip1").innerHTML = "错误";
+      }
+    }
+
+    // 验证座机号码
+    my$("tellPhone").onblur = function () {
+      var reg = /^[0-9]{3,4}[-][0-9]{8}$/;
+      if (reg.test(this.value)) {
+        my$("tip2").innerHTML = "正确";
+      } else {
+        my$("tip2").innerHTML = "错误";
+      }
+    }
+
+    // 验证qq
+    my$("qq").onblur = function () {
+      var reg = /^[1-9][0-9]{4,10}$/;
+      if (reg.test(this.value)) {
+        my$("tip3").innerHTML = "正确";
+      } else {
+        my$("tip3").innerHTML = "错误";
+      }
+    }
+
+    // 验证身份证
+    my$("idCard").onblur = function () {
+      var reg = /^([1-9][0-9]{14})|([1-9][0-9]{16}[0-9xX])$/;
+      if (reg.test(this.value)) {
+        my$("tip4").innerHTML = "正确";
+      } else {
+        my$("tip4").innerHTML = "错误";
+      }
+    }
+
+    console.log(escape("哈哈")); //中文转码
+    console.log(unescape("%u54C8%u54C8")); //码转中文
+  </script>
+</body>
+
+</html>
